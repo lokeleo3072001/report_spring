@@ -1,0 +1,15 @@
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Product</title>
+</head>
+<body>
+My Product
+<h4 th:text="${product.getName()}"></h4>
+<form action="accept">
+    <input th:value = "${product.getName()}">
+    <input value = "${product.getID()}">
+</form>
+</div>
+</body>
+</html>
