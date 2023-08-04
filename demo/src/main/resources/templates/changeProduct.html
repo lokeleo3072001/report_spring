@@ -4,12 +4,12 @@
     <title>List Product</title>
 </head>
 <body>
-My Product
-<h4 th:text="${product.getName()}"></h4>
-<form action="accept">
-    <input th:value = "${product.getName()}">
-    <input value = "${product.getID()}">
-</form>
-</div>
+    My Product
+    <h4 th:text="${product.getName()}"></h4>
+    <form action="accept" method="post">
+        <input name="name" th:value = "${product.getName()}">
+        <input name="id" type="hidden" th:value = "${product.getID()}">
+        <input id="submit" onclick="myFunction()" type='submit' value="Sửa">
+    </form>
 </body>
 </html>

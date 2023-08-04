@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.info_product;
 import com.example.demo.repository.productRepository;
 
+
 @Service
 public class productService{
     @Autowired
@@ -24,4 +25,17 @@ public class productService{
     public info_product findProduct(Long id){
         return repo.findProductByID(id);
     }
+
+    public void acceptChangeProduct(Long id, String name){
+        repo.updateProduct(id, name);
+    }
+
+    public void deleteProduct(Long id){
+        repo.deleteProduct(id);
+    }
+
+    public void newProduct(info_product product){
+        repo.save(product);  
+    }
+
 }
