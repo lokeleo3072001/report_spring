@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Email;
 import com.example.demo.entity.info_product;
 import com.example.demo.service.productService;
 
@@ -118,5 +119,20 @@ public class indexcontroller {
         List<info_product> list = service.findAllProduct();
         model.addAttribute("listProduct", list);
         return "listProduct";  
+    }
+
+    @GetMapping(value = "saveEmail")
+    public String saveInfoEmail(Model model){
+        model.addAttribute("email", new Email());
+        model.addAttribute("languages", new String[]{"English", "Vietnamese", "Japanese", "Chinese"});
+        model.addAttribute("sizes", new int[]{5,10,15,20,25,50,100});
+
+        return "formInfoEmail";
+    }
+
+    @PostMapping("saveInfo")
+    public String saveInfoEmail(@ModelAttribute("email") Email email, Model model){
+        model.addAttribute("email", email);
+        return "infoEmail";
     }
 }
