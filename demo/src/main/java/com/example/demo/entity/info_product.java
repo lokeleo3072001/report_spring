@@ -29,4 +29,10 @@ public class info_product {
     public void setName(String name){
         this.name_product = name;
     }
+
+    public info_product(String name){
+        this.name_product = name;
+    }
+    public info_product() {
+    }
 }
