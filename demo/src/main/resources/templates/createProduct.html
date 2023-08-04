@@ -8,7 +8,7 @@
 <body>
     Add new product
     <form th:action="@{/newProduct}" method="post" th:object="${product}" >
-        <input type="text" th:field="*{name_product}">
+        <input type="text" th:field="*{name}">
         <input id="submit" type='submit' value="Accept">
     </form>
 </body>

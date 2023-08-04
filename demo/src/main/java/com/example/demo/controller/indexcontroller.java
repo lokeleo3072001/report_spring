@@ -112,11 +112,12 @@ public class indexcontroller {
 
     @PostMapping(value = "newProduct", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String newProduct(@Valid @ModelAttribute("info_product") info_product product, BindingResult result, Model model){
-        List<info_product> list = service.findAllProduct();
-        model.addAttribute("listProduct", list);
-        if(result.hasErrors()){
+        System.out.println(product.getName());
+        if(!result.hasErrors()){
             service.newProduct(product);
         }
+        List<info_product> list = service.findAllProduct();
+        model.addAttribute("listProduct", list);
         return "listProduct";  
     }
 }
