@@ -1,0 +1,68 @@
+java.util.NoSuchElementException: next on empty iterator
+occurred in the presentation compiler.
+
+action parameters:
+offset: 878
+uri: file:///D:/spring/springmvc/report_spring/demo/src/main/java/com/example/demo/service/productService.java
+text:
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Products;
+import com.example.demo.repository.productRepository;
+
+
+@Service
+public class productService{
+    @Autowired
+    private productRepository repo;
+
+    public List<Products> findProductbyname(String name){
+        return repo.findProduct(name);
+    }
+
+    public Page<Products> findAllProduct(Pageable pageable){
+        return repo.findAllProducts(pageable);
+    }
+    public Page<Products> findAllProduct(PageRequest pageable){
+        return repo.findAl@@lProducts(pageable);
+    }
+
+    public Products findProduct(Long id){
+        return repo.findProductByID(id);
+    }
+
+    public void acceptChangeProduct(Long id, String name){
+        repo.updateProduct(id, name);
+    }
+
+    public void deleteProduct(Long id){
+        repo.delete(findProduct(id));
+    }
+
+    public void newProduct(Products product){
+        repo.save(product);  
+    }
+
+}
+
+
+
+error stacktrace:
+scala.collection.Iterator$$anon$19.next(Iterator.scala:973)
+	scala.collection.Iterator$$anon$19.next(Iterator.scala:971)
+	scala.collection.mutable.MutationTracker$CheckedIterator.next(MutationTracker.scala:76)
+	scala.collection.IterableOps.head(Iterable.scala:222)
+	scala.collection.IterableOps.head$(Iterable.scala:222)
+	scala.collection.AbstractIterable.head(Iterable.scala:933)
+	dotty.tools.dotc.interactive.InteractiveDriver.run(InteractiveDriver.scala:168)
+	scala.meta.internal.pc.MetalsDriver.run(MetalsDriver.scala:45)
+	scala.meta.internal.pc.HoverProvider$.hover(HoverProvider.scala:34)
+	scala.meta.internal.pc.ScalaPresentationCompiler.hover$$anonfun$1(ScalaPresentationCompiler.scala:325)

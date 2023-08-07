@@ -3,9 +3,10 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.info_product;
+import com.example.demo.entity.Product;
 import com.example.demo.repository.productRepository;
 
 
@@ -14,15 +15,21 @@ public class productService{
     @Autowired
     private productRepository repo;
 
-    public List<info_product> findProductbyname(String name){
+    // public List<Product> findAllProduct(Pageable pageable){
+    //     return repo.findAllProduct(pageable);
+    // }
+
+    public List<Product> findProductbyname(String name){
         return repo.findProduct(name);
     }
 
-    public List<info_product> findAllProduct(){
-        return repo.findAllProducts();
-    }
+    // public Page<Products> findAllProduct(Pageable pageable){
+    //     return repo.findAll(pageable);
+    // }
 
-    public info_product findProduct(Long id){
+    
+
+    public Product findProduct(Long id){
         return repo.findProductByID(id);
     }
 
@@ -31,11 +38,10 @@ public class productService{
     }
 
     public void deleteProduct(Long id){
-        repo.deleteProduct(id);
+        repo.deleteById(id);;
     }
 
-    public void newProduct(info_product product){
-        repo.save(product);  
+    public void newProduct(Product product){ 
     }
 
 }

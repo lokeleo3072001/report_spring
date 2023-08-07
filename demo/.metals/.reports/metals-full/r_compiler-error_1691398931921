@@ -1,0 +1,57 @@
+java.util.NoSuchElementException: next on empty iterator
+occurred in the presentation compiler.
+
+action parameters:
+offset: 950
+uri: file:///D:/spring/springmvc/report_spring/demo/src/main/java/com/example/demo/repository/productRepository.java
+text:
+package com.example.demo.repository;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.example.demo.entity.Product;
+
+import jakarta.transaction.Transactional;
+
+public interface productRepository extends PagingAndSortingRepository<Product,Long>{
+
+    List<Product> findAllProducts(Pageable pageable);
+
+    // @Query(value = "Select * FROM info_product p WHERE p.name_product like %:name%", nativeQuery = true)
+    List<Product> findProduct(@Param("name") String name);    
+
+    // @Query(value = "Select * FROM info_product p WHERE p.id = :id", nativeQuery = true)
+    Product findProductByID(@Param("id") Lo@@ng id);
+
+    // @Modifying
+    // @Transactional
+    // @Query(value = "UPDATE info_product p SET p.name_product = :name WHERE p.id = :id", nativeQuery = true)
+    void updateProduct(@Param("id") Long id, @Param("name") String name);
+
+    // @Modifying
+    // @Transactional
+    // @Query(value = "DELETE FROM info_product p WHERE p.id = :id")
+    void delete(@Param("id") Long id);
+    
+}
+
+
+
+error stacktrace:
+scala.collection.Iterator$$anon$19.next(Iterator.scala:973)
+	scala.collection.Iterator$$anon$19.next(Iterator.scala:971)
+	scala.collection.mutable.MutationTracker$CheckedIterator.next(MutationTracker.scala:76)
+	scala.collection.IterableOps.head(Iterable.scala:222)
+	scala.collection.IterableOps.head$(Iterable.scala:222)
+	scala.collection.AbstractIterable.head(Iterable.scala:933)
+	dotty.tools.dotc.interactive.InteractiveDriver.run(InteractiveDriver.scala:168)
+	scala.meta.internal.pc.MetalsDriver.run(MetalsDriver.scala:45)
+	scala.meta.internal.pc.HoverProvider$.hover(HoverProvider.scala:34)
+	scala.meta.internal.pc.ScalaPresentationCompiler.hover$$anonfun$1(ScalaPresentationCompiler.scala:325)
