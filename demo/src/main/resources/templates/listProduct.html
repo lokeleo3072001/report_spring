@@ -86,7 +86,7 @@ My Product
       </div>
 </form>
 
-<div th:each="product: ${products}">
+<div th:each="product: ${products.content}">
     <h4 th:text="${product.getName()}"></h4>
     <form action="changeProduct" method="post">
         <input type="submit" value = "Sửa">
@@ -97,9 +97,11 @@ My Product
         <input type="hidden" name="id" th:value = "${product.getID()}">
     </form>
 </div>
-<a th:if="${products.hasPrevious()}" th:href="@{'/findAllProduct}'(page=${products.id - 1})">Previous</a>
 <form action="createProduct">
-    <input type="submit" value="Add">
+  <input type="submit" value="ADD NEW PRODUCT">
 </form>
+<a th:if="${products.hasPrevious()}" th:href="@{'/findAllProduct'(page = ${products.number-1})}">Previous</a>
+<span th:text="${products.number+1}"></span>/<span th:text="${products.totalPages}"></span>
+<a th:if="${products.hasNext()}" th:href="@{'/findAllProduct'(page=${products.number+1})}">Next</a>
 </body>
 </html>

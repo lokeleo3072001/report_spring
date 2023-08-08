@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +13,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="info_product")
-public class Product {
+public class Product implements Validator{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -34,5 +37,17 @@ public class Product {
         this.name_product = name;
     }
     public Product() {
+    }
+    @Override
+    public boolean supports(Class<?> clazz) {
+        throw new UnsupportedOperationException("Unimplemented method 'supports'");
+    }
+    @Override
+    public void validate(Object target, Errors errors) {
+        Product product = (Product) target;
+        String name = product.getName();
+        if(name == null || "".equals(name)){
+            errors.rejectValue("name", "Không đượC để trống tên");
+        }
     }
 }
