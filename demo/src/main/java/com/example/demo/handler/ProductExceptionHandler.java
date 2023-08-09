@@ -4,9 +4,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ProductController {
+public class ProductExceptionHandler {
     @ExceptionHandler
     public String exception(Exception ex){
+        System.out.println(ex);
         return "error";
     }
 }

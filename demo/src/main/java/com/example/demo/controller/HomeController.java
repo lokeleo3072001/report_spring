@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,7 +80,7 @@ public class HomeController {
 
     @GetMapping(value = "findAllProduct")
     public String getAllProduct(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Pageable pageable = PageRequest.of(page, 1);
+        Pageable pageable = PageRequest.of(page, 2);
         Page<Product> products = service.findAllProduct(pageable);
         model.addAttribute("products", products);
         return "listProduct";

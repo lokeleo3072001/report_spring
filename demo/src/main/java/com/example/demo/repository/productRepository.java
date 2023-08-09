@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,12 @@ public interface productRepository extends JpaRepository<Product,Long>{
 
     @Query(value = "SELECT * FROM info_product", nativeQuery = true)
     Page<Product> findAllProduct(Pageable pageable);
+
+    @Query(value = "SELECT * FROM info_product", nativeQuery = true)
+    List<Product> findAllProduct2();
+
+    @Query(value = "SELECT * FROM info_product p WHERE p.name_product = :name", nativeQuery = true)
+    Product findProductbyName(String name);
 
     @Query(value = "Select * FROM info_product p WHERE p.name_product like %:name%", nativeQuery = true)
     Page<Product> findProduct(@Param("name") String name, Pageable pageable);    

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +22,17 @@ public class productService{
         return repo.findProduct(name, pageable);
     }
 
+    public Product findProductbyName(String name){
+        return repo.findProductbyName(name);
+    }
+
     public Page<Product> findAllProduct(Pageable pageable){
         return repo.findAllProduct(pageable);
     }
+
+        public List<Product> findAllProduct2(){
+            return repo.findAllProduct2();
+        }
 
     public Product findProduct(Long id){
         return repo.findProductByID(id);
@@ -36,9 +46,8 @@ public class productService{
         repo.deleteById(id);;
     }
 
-    public void saveProduct(Product product){
-        repo.save(product);
-        repo.flush();
+    public Product saveProduct(Product product){
+        return repo.save(product);
     }
 
 }
