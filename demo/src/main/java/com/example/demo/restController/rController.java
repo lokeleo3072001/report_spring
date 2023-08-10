@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Product;
@@ -22,7 +21,7 @@ public class rController {
 
     @GetMapping(value = "getListProduct")
     public ResponseEntity<List<Product>> listAllUsers() {
-        List<Product> users = service.findAllProduct2();
+        List<Product> users = service.restfulFindAllProduct();
         if(users.isEmpty()){
             return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
         }

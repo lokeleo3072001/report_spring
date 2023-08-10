@@ -30,9 +30,9 @@ public class productService{
         return repo.findAllProduct(pageable);
     }
 
-        public List<Product> findAllProduct2(){
-            return repo.findAllProduct2();
-        }
+    public List<Product> restfulFindAllProduct(){
+        return repo.RestfulfindAllProduct();
+    }
 
     public Product findProduct(Long id){
         return repo.findProductByID(id);

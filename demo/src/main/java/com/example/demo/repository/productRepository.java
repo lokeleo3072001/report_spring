@@ -17,7 +17,7 @@ public interface productRepository extends JpaRepository<Product,Long>{
     Page<Product> findAllProduct(Pageable pageable);
 
     @Query(value = "SELECT * FROM info_product", nativeQuery = true)
-    List<Product> findAllProduct2();
+    List<Product> RestfulfindAllProduct();
 
     @Query(value = "SELECT * FROM info_product p WHERE p.name_product = :name", nativeQuery = true)
     Product findProductbyName(String name);
