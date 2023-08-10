@@ -1,14 +1,11 @@
 package com.example.demo.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.info_product;
 import com.example.demo.repository.productRepository;
 
 
@@ -17,37 +14,28 @@ public class productService{
     @Autowired
     private productRepository repo;
 
-
-    public Page<Product> findProductbyname(String name, Pageable pageable){
-        return repo.findProduct(name, pageable);
+    public List<info_product> findProductbyname(String name){
+        return repo.findProduct(name);
     }
 
-    public Product findProductbyName(String name){
-        return repo.findProductbyName(name);
+    public List<info_product> findAllProduct(){
+        return repo.findAllProducts();
     }
 
-    public Page<Product> findAllProduct(Pageable pageable){
-        return repo.findAllProduct(pageable);
-    }
-
-    public List<Product> restfulFindAllProduct(){
-        return repo.RestfulfindAllProduct();
-    }
-
-    public Product findProduct(Long id){
+    public info_product findProduct(Long id){
         return repo.findProductByID(id);
     }
 
-    // public void acceptChangeProduct(Long id, String name){
-    //     repo.updateProduct(id, name);
-    // }
-
-    public void deleteProduct(Long id){
-        repo.deleteById(id);;
+    public void acceptChangeProduct(Long id, String name){
+        repo.updateProduct(id, name);
     }
 
-    public Product saveProduct(Product product){
-        return repo.save(product);
+    public void deleteProduct(Long id){
+        repo.deleteProduct(id);
+    }
+
+    public void newProduct(info_product product){
+        repo.save(product);  
     }
 
 }

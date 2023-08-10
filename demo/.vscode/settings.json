@@ -1,10 +1,5 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.debug.settings.onBuildFailureProceed": true,
-    "files.watcherExclude": {
-        "**/target": true
-    },
-    "java.project.referencedLibraries": [
-
-    ]
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.onBuildFailureProceed": true
 }

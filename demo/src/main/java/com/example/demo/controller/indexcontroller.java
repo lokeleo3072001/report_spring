@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.Email;
-import com.example.demo.entity.Product;
+import com.example.demo.entity.info_product;
 import com.example.demo.service.productService;
 
 import jakarta.validation.Valid;
@@ -28,16 +25,15 @@ import jakarta.validation.Valid;
 
 
 @Controller
-public class HomeController {
+public class indexcontroller {
     private static Pattern pattern;
     private Matcher matcher;
-    
     @Autowired
     private productService service;
 
     private static final String EMAIL_REGEX = "^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$";
 
-    public HomeController() {
+    public indexcontroller() {
         pattern = Pattern.compile(EMAIL_REGEX);
     }
     private boolean validate(String regex) {
@@ -79,77 +75,48 @@ public class HomeController {
     }
 
     @GetMapping(value = "findAllProduct")
-    public String getAllProduct(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Pageable pageable = PageRequest.of(page, 2);
-        Page<Product> products = service.findAllProduct(pageable);
-        model.addAttribute("products", products);
-        return "listProduct";
-    }
-
-    @PostMapping(value="search")
-    public String searchProduct(Model model, @RequestParam("name") String name, 
-    @RequestParam(value = "page", defaultValue = "0") int page){
-        Pageable pageable = PageRequest.of(page,1);
-        Page<Product> products = service.findProductbyname(name, pageable);
-        model.addAttribute("products", products);
+    public String getAllProduct(Model model){
+        List<info_product> list = service.findAllProduct();
+        model.addAttribute("listProduct", list);
         return "listProduct";
     }
 
     @PostMapping("changeProduct")
-    public String selectProduct(Model model, @RequestParam("id") Product product){
+    public String selectProduct(Model model, @RequestParam("id") Long id){
+        info_product product = service.findProduct(id);
         model.addAttribute("product", product);
         return "changeProduct";
     }
 
     @PostMapping("accept")
-    public String successChange(@RequestParam("id") Product product, @RequestParam("name") String name){
-        product.setName(name);
-        service.saveProduct(product);
+    public String successChange(@RequestParam("id") Long id, @RequestParam("name") String name){
+        service.acceptChangeProduct(id, name);
         return "success";
     }
 
     @PostMapping("deleteProduct")
-    public String deleteProduct(@RequestParam("id") Long id, Model model,
-    @RequestParam(value = "page", defaultValue = "0") int page){
+    public String deleteProduct(@RequestParam("id") Long id, Model model){
         service.deleteProduct(id);
-        Pageable pageable = PageRequest.of(page,1);
-        Page<Product> list = service.findAllProduct(pageable);
-        model.addAttribute("products", list);
+        List<info_product> list = service.findAllProduct();
+        model.addAttribute("listProduct", list);
         return "listProduct";
     }
 
     @GetMapping("createProduct")
     public String addNewProduct(Model model){
-        Product product = new Product();
+        info_product product = new info_product();
+
         model.addAttribute("product", product);
         return "createProduct";
     }
 
     @PostMapping(value = "newProduct", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String newProduct(@Valid @ModelAttribute("Info_product") Product product, 
-    BindingResult result, Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        if(!result.hasErrors()){
-            service.saveProduct(product);
+    public String newProduct(@Valid @ModelAttribute("info_product") info_product product, BindingResult result, Model model){
+        List<info_product> list = service.findAllProduct();
+        model.addAttribute("listProduct", list);
+        if(result.hasErrors()){
+            service.newProduct(product);
         }
-
-        Pageable pageable = PageRequest.of(page,1);
-        Page<Product> list = service.findAllProduct(pageable);
-        model.addAttribute("products", list);
         return "listProduct";  
     }
-
-    @GetMapping(value = "saveEmail")
-    public String saveInfoEmail(Model model){
-        model.addAttribute("email", new Email());
-        model.addAttribute("languages", new String[]{"English", "Vietnamese", "Japanese", "Chinese"});
-        model.addAttribute("sizes", new int[]{5,10,15,20,25,50,100});
-        return "formInfoEmail";
-    }
-
-    @PostMapping("saveInfo")
-    public String saveInfoEmail(@ModelAttribute("email") Email email, Model model){
-        model.addAttribute("email", email);
-        return "infoEmail";
-    }
-    
 }
