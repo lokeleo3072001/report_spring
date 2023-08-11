@@ -80,6 +80,7 @@ public class HomeController {
     }
 
     @GetMapping(value = "findAllProduct")
+    @PreAuthorize("hasAuthority('USER')")
     public String getAllProduct(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
         Pageable pageable = PageRequest.of(page, 1);
         Page<Product> products = service.findAllProduct(pageable);
@@ -88,6 +89,7 @@ public class HomeController {
     }
 
     @PostMapping(value="search")
+    @PreAuthorize("hasAuthority('USER')")
     public String searchProduct(Model model, @RequestParam("name") String name, 
     @RequestParam(value = "page", defaultValue = "0") int page){
         Pageable pageable = PageRequest.of(page,1);
@@ -119,7 +121,7 @@ public class HomeController {
         return "listProduct";
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("createProduct")
     public String addNewProduct(Model model){
         Product product = new Product();
@@ -128,6 +130,7 @@ public class HomeController {
     }
 
     @PostMapping(value = "newProduct", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PreAuthorize("hasAuthority('USER')")
     public String newProduct(@Valid @ModelAttribute("Info_product") Product product, 
     BindingResult result, Model model, @RequestParam(value = "page", defaultValue = "0") int page){
         if(!result.hasErrors()){
