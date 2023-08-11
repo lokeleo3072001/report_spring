@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -118,6 +119,7 @@ public class HomeController {
         return "listProduct";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("createProduct")
     public String addNewProduct(Model model){
         Product product = new Product();
