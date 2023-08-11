@@ -30,6 +30,7 @@ public class rController {
 
     @PostMapping(value = "/createNewProduct")
     public ResponseEntity<Void> createProduct(@RequestParam("name") String name){
+        
         Product product = new Product(name);
         if (service.findProductbyName(product.getName()) != null) {
             System.out.println("A User with name " + product.getName() + " already exist");

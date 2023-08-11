@@ -80,7 +80,7 @@ public class HomeController {
 
     @GetMapping(value = "findAllProduct")
     public String getAllProduct(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 1);
         Page<Product> products = service.findAllProduct(pageable);
         model.addAttribute("products", products);
         return "listProduct";

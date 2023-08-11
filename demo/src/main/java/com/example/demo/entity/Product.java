@@ -19,7 +19,7 @@ public class Product implements Validator{
     private Long id;
 
     @NotBlank
-    @Size(min=6,max=20,message = "Name should have at least 4 characters and no more than 30 characters!!!")
+    @Size(min=6,max=20,message = "Name should have at least 6 characters and no more than 30 characters!!!")
     private String name_product;
 
     public Long getID(){
