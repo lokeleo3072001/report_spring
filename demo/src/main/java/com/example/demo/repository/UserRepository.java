@@ -8,12 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.UserEntity;
 
-public interface userRepository extends JpaRepository<UserEntity,Long> {
+public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query(value = "SELECT * FROM user u WHERE u.name = :name and u.password = :password", nativeQuery = true)
     UserEntity findUserbyNameandPassword(@Param("name") String name, @Param("password") String password);
 
     @Query(value = "SELECT * FROM user u WHERE u.name = :name", nativeQuery = true)
-    UserEntity findbyName(@Param("name") String name);
+    Optional<UserEntity> findbyName(@Param("name") String name);
 
     @Query(value = "SELECT * FROM user u WHERE u.name = :name", nativeQuery = true)
     Optional<UserEntity> OptionaluserbyName(@Param("name") String name);

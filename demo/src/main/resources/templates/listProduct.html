@@ -88,16 +88,16 @@ My Product
 
 <div th:each="product: ${products.content}">
     <h4 th:text="${product.getName()}"></h4>
-    <form action="changeProduct" method="post">
+    <form th:action="@{changeProduct}" method="post">
         <input type="submit" value = "Sửa">
         <input type="hidden" name="id" th:value = "${product.getID()}">
     </form>
-    <form action="deleteProduct" method="post">
+    <form th:action="@{deleteProduct}" method="post">
         <input type="submit" value = "Xoá">
         <input type="hidden" name="id" th:value = "${product.getID()}">
     </form>
 </div>
-<form action="createProduct">
+<form th:action="@{createProduct}">
   <input type="submit" value="ADD NEW PRODUCT">
 </form>
 <a th:if="${products.hasPrevious()}" th:href="@{'/findAllProduct'(page = ${products.number-1})}">Previous</a>

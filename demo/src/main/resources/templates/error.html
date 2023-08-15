@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
     <title>Error</title>
@@ -7,6 +8,7 @@
 <body>
     <h1>Login Failed</h1>
     <p>Sorry, your login attempt was not successful. Please try again.</p>
+    <a th:if="${messager != null }" th:text="${messager}"></a>
     <a th:href="@{/login}">Back to Login</a>
 </body>
 </html>

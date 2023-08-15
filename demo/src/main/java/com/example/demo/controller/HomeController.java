@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -80,7 +79,6 @@ public class HomeController {
     }
 
     @GetMapping(value = "findAllProduct")
-    @PreAuthorize("hasAuthority('USER')")
     public String getAllProduct(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
         Pageable pageable = PageRequest.of(page, 1);
         Page<Product> products = service.findAllProduct(pageable);
@@ -89,7 +87,6 @@ public class HomeController {
     }
 
     @PostMapping(value="search")
-    @PreAuthorize("hasAuthority('USER')")
     public String searchProduct(Model model, @RequestParam("name") String name, 
     @RequestParam(value = "page", defaultValue = "0") int page){
         Pageable pageable = PageRequest.of(page,1);
@@ -121,7 +118,6 @@ public class HomeController {
         return "listProduct";
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("createProduct")
     public String addNewProduct(Model model){
         Product product = new Product();
@@ -130,7 +126,6 @@ public class HomeController {
     }
 
     @PostMapping(value = "newProduct", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    @PreAuthorize("hasAuthority('USER')")
     public String newProduct(@Valid @ModelAttribute("Info_product") Product product, 
     BindingResult result, Model model, @RequestParam(value = "page", defaultValue = "0") int page){
         if(!result.hasErrors()){
