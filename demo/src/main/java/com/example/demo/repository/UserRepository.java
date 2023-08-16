@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     UserEntity findUserbyNameandPassword(@Param("name") String name, @Param("password") String password);
 
     @Query(value = "SELECT * FROM user u WHERE u.name = :name", nativeQuery = true)
-    Optional<UserEntity> findbyName(@Param("name") String name);
+    Optional<UserEntity> findByName(@Param("name") String name);
 
     @Query(value = "SELECT * FROM user u WHERE u.name = :name", nativeQuery = true)
     Optional<UserEntity> OptionaluserbyName(@Param("name") String name);

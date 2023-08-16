@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import lombok.NonNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -39,14 +40,14 @@ public class Product implements Validator{
     public Product() {
     }
     @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(@NonNull Class<?> clazz) {
         throw new UnsupportedOperationException("Unimplemented method 'supports'");
     }
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NonNull Object target, @NonNull Errors errors) {
         Product product = (Product) target;
         String name = product.getName();
-        if(name == null || "".equals(name)){
+        if(name == null || name.isEmpty()){
             errors.rejectValue("name", "Không đượC để trống tên");
         }
     }
