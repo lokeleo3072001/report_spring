@@ -58,5 +58,4 @@ public class CookieController {
         return "index";
     }
 
-
 }
