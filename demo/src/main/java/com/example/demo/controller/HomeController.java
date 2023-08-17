@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -45,7 +47,7 @@ public class HomeController {
         return matcher.matches();
     }
 
-    @GetMapping("")
+    @GetMapping(value = {"","index"})
     public String home(){
         return "index";
     }
@@ -96,6 +98,7 @@ public class HomeController {
     }
 
     @PostMapping("changeProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String selectProduct(Model model, @RequestParam("id") Product product){
         model.addAttribute("product", product);
         return "changeProduct";

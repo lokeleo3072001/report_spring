@@ -6,8 +6,10 @@
 <body>
     My Product
     <h4 th:text="${product.getName()}"></h4>
-    <form action="accept" method="post">
-        <input name="name" th:value = "${product.getName()}">
+    <form th:action="@{/accept}" method="post">
+        <label>
+            <input name="name" th:value = "${product.getName()}">
+        </label>
         <input name="id" type="hidden" th:value = "${product.getID()}">
         <input id="submit" onclick="myFunction()" type='submit' value="Sửa">
     </form>

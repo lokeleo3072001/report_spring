@@ -18,13 +18,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository repo;
     @Override
-    public UserDetailsService findbyName() {
+    public UserDetailsService setupUserDetailsService() {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return repo.findbyName(username)
+                return repo.findByName(username)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return repo.findByName(name).isPresent();
     }
 }
